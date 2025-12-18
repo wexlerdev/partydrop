@@ -1,0 +1,39 @@
+# --- General ---
+node_modules/
+.DS_Store
+*.log
+logs
+.vercel
+
+# env files
+.env
+.env.local
+.env.*.local
+
+# --- API (Express/Node) ---
+api/.env
+api/dist/
+api/build/
+api/npm-debug.log*
+
+# --- Web (Next.js) ---
+web/.next/
+web/out/
+web/.env*.local
+web/.env.production
+web/npm-debug.log*
+web/yarn-error.log*
+
+# --- Database / Tools ---
+mongo-data/
+*.db
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Testing
+coverage/
+.nyc_output
