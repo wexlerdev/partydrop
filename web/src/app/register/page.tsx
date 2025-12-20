@@ -17,7 +17,7 @@ export default function RegisterPage() {
     setLoading(true);
     try {
       await register(email, password);
-      r.push("/create");
+      r.push("/host");
     } catch (e: any) {
       setErr(String(e?.message ?? e));
     } finally {

@@ -7,7 +7,7 @@ import { login } from "@/lib/api";
 export default function LoginPage() {
   const r = useRouter();
   const sp = useSearchParams();
-  const next = sp.get("next") || "/create";
+  const next = sp.get("next") || "/host";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

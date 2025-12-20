@@ -6,11 +6,12 @@ import type { NextRequest } from "next/server";
 // to quickly redirect unauthenticated users away from protected routes like /create
 // this does not cover invalid/expired tokens
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const token = req.cookies.get("token")?.value;
 
   // Protect /create (and later /host, /dashboard, etc.)
-  const isProtected = req.nextUrl.pathname.startsWith("/create");
+  const isProtected = req.nextUrl.pathname.startsWith("/create") ||
+		req.nextUrl.pathname.startsWith("/host");
 
   if (isProtected && !token) {
     const url = req.nextUrl.clone();
@@ -18,10 +19,11 @@ export function middleware(req: NextRequest) {
     url.searchParams.set("next", req.nextUrl.pathname);
     return NextResponse.redirect(url);
   }
-
+  
+  console.log("Proxy middleware passed, token found");
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/create/:path*"],
+  matcher: ["/host/:path*", "/create/:path*"],
 };

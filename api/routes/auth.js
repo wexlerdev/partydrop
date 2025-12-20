@@ -1,7 +1,7 @@
 import express from "express";
 import bcrypt from "bcrypt";
 import User from "../models/User.js";
-import { signToken } from "../lib/jwt.js";
+import { signToken, verifyToken } from "../lib/jwt.js";
 import { requireAuth } from "../middleware/requireAuth.js";
 import { set } from "mongoose";
 
@@ -91,7 +91,7 @@ router.get("/me", requireAuth, async (req, res) => {
     const payload = verifyToken(token);
     return res.json(payload);
   } catch {
-    // 🔥 important improvement: clear bad cookie
+    //important : clear bad cookie
     res.clearCookie("token", {
       httpOnly: true,
       sameSite: "lax",
