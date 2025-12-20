@@ -1,5 +1,7 @@
 "use client";
 
+// Host dashboard client component
+
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { QRCodeCanvas } from "qrcode.react";
