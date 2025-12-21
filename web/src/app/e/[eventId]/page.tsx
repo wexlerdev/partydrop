@@ -31,8 +31,9 @@ export default async function EventPage({
       <h1 className="text-2xl font-semibold">{event.name}</h1>
 
       <div
-        className={`inline-flex items-center rounded-full border px-3 py-1 text-sm ${
-          event.uploadsOpen ? "bg-green-50 border-green-200" : "bg-gray-50 border-gray-200"
+      //"bg-green-600 border-green-200" : "bg-red-600 border-red-200"
+        className={`inline-flex items-center rounded-full border px-3 py-1 text-sm font-semibold ${
+          event.uploadsOpen ? "bg-green-600 border-green-200" : "bg-red-600 border-red-200"
         }`}
       >
         {event.uploadsOpen ? "Uploads open" : "Uploads closed"}
