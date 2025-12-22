@@ -1,13 +1,15 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { resetDB, setupDB, teardownDB } from "./setup";
 import request from "supertest";
-import app from "../app.js";
+import createApp from "../app.js";
 
 const DB_NAME = "partydrop_test_events";
 
 describe("Events API", () => {
+	let app;
 	beforeAll(async () => {
 		await setupDB(DB_NAME);
+		app = createApp();
 	});
 
 	beforeEach(async () => {
