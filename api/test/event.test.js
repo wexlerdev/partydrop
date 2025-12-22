@@ -3,10 +3,11 @@ import { resetDB, setupDB, teardownDB } from "./setup";
 import request from "supertest";
 import app from "../app.js";
 
+const DB_NAME = "partydrop_test_events";
 
 describe("Events API", () => {
 	beforeAll(async () => {
-		await setupDB();
+		await setupDB(DB_NAME);
 	});
 
 	beforeEach(async () => {
@@ -191,6 +192,13 @@ describe("Events API", () => {
 				.patch(`/api/events/${myEventId}/uploads`)
 				.send({ uploadsOpen: false });
 			expect(res.status).toBe(404); // not found since they don't own it
+		});
+
+		it("404 when event ID is invalid", async () => {
+			const res = await agent
+				.patch(`/api/events/invalid-event-id-friends/uploads`)
+				.send({ uploadsOpen: false });
+			expect(res.status).toBe(404);
 		});
 
 		it("successfully updates uploadsOpen for my event", async () => {
