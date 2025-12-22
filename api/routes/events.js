@@ -1,6 +1,7 @@
 import express from "express";
 import { requireAuth } from "../middleware/requireAuth.js";
 import { Event } from "../models/Event.js";
+import mongoose from "mongoose";
 
 const router = express.Router();
 
@@ -77,8 +78,14 @@ router.patch("/:id/uploads", requireAuth, async (req, res) => {
 
 // Public: get event metadata (for /e/[eventId])
 router.get("/:id", async (req, res) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return res.status(404).json({ error: "not found" });
+  }
+
   const event = await Event.findById(req.params.id).lean();
-  if (!event) return res.status(404).json({ error: "not found" });
+  if (!event) {
+    return res.status(404).json({ error: "not found" });
+  }
 
   res.json({
     id: event._id.toString(),
