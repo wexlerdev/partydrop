@@ -1,7 +1,7 @@
 import { afterAll, beforeAll, beforeEach, expect } from "vitest";
 import { resetDB, setupDB, teardownDB } from "./setup";
 import request from "supertest";
-import app from "../app.js";
+import createApp from "../app.js";
 
 const DB_NAME = "partydrop_test_auth";
 
@@ -27,8 +27,10 @@ function expectSetCookieClearsToken(setCookieHeaders) {
 }
 
 describe("Authentication", () => {
+	let app;
 	beforeAll( async () => {
 		await setupDB(DB_NAME);
+		app = createApp();
 	});
 
 	beforeEach( async () => {
