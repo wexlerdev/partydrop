@@ -3,6 +3,8 @@ import { resetDB, setupDB, teardownDB } from "./setup";
 import request from "supertest";
 import app from "../app.js";
 
+const DB_NAME = "partydrop_test_auth";
+
 function expectSetCookieHasToken(setCookieHeaders) {
 	expect(setCookieHeaders).toBeDefined();
 	expect(Array.isArray(setCookieHeaders)).toBe(true);
@@ -26,7 +28,7 @@ function expectSetCookieClearsToken(setCookieHeaders) {
 
 describe("Authentication", () => {
 	beforeAll( async () => {
-		await setupDB();
+		await setupDB(DB_NAME);
 	});
 
 	beforeEach( async () => {

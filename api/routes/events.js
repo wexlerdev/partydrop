@@ -50,6 +50,10 @@ router.get("/mine", requireAuth, async (req, res) => {
 router.patch("/:id/uploads", requireAuth, async (req, res) => {
   try {
     const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).json({ error: "event not found" });
+    }
+
     const { uploadsOpen } = req.body;
     if (typeof uploadsOpen !== "boolean") {
       return res.status(400).json({ error: "uploadsOpen must be boolean" });
